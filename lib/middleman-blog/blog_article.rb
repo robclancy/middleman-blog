@@ -60,6 +60,7 @@ module Middleman
       # 3. The article's date is after the current time
       # @return [Boolean]
       def published?
+        return false if data['draft']
         data["published"] != false && (blog_options.publish_future_dated || date <= Time.current)
       end
 

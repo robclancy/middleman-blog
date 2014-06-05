@@ -134,7 +134,7 @@ module Middleman
       # @param [BlogArticle] article A blog article
       # @return [Boolean] whether it should be published
       def publishable?(article)
-        @app.environment == :development || article.published?
+        article.published?
       end
 
       private
