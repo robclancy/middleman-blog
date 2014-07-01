@@ -6,6 +6,8 @@ module Middleman
     # for the articles by various dimensions. Accessed via "blog" in
     # templates.
     class BlogData
+      @@tags = false
+      
       include UriTemplates
 
       # A URITemplate for the source file path relative to :source_dir
@@ -54,20 +56,22 @@ module Middleman
       # of BlogArticles associated with that tag.
       # @return [Hash<String, Array<Middleman::Sitemap::Resource>>]
       def tags
-        tags = {}
+        return @@tags if @@tags
+        
+        @@tags = {}
         @_articles.each do |article|
           article.tags.each do |tag|
-            tags[tag] ||= []
-            tags[tag] << article
+            @@tags[tag] ||= []
+            @@tags[tag] << article
           end
         end
 
         # Sort each tag's list of articles
-        tags.each do |tag, articles|
-          tags[tag] = articles.sort_by(&:date).reverse
+        @@tags.each do |tag, articles|
+          @@tags[tag] = articles.sort_by(&:date).reverse
         end
 
-        tags
+        @@tags
       end
 
       # Updates' blog articles destination paths to be the
