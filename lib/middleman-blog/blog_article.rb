@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'active_support/time_with_zone'
+require 'active_support/core_ext/time/acts_like'
 require 'active_support/core_ext/time/calculations'
 
 module Middleman
@@ -56,7 +57,7 @@ module Middleman
       # An article is considered published in the following scenarios:
       #
       # 1. Frontmatter does not set +published+ to false and either
-      # 2. The blog option +published_future_dated+ is true or
+      # 2. The blog option +publish_future_dated+ is true or
       # 3. The article's date is after the current time
       # @return [Boolean]
       def published?
